@@ -22,6 +22,15 @@ func (ps *ProductService) GetProducties() ([]*entity.Product, error) {
 	return products, nil
 }
 
+func (ps *ProductService) GetProductByCategory(category string) ([]*entity.Product, error) {
+	products, err := ps.ProductDB.GetProductByCategory(category)
+	if err != nil {
+		return nil, err
+	}
+	return products, nil
+
+}
+
 func (ps *ProductService) GetProduct(id string) (*entity.Product, error) {
 
 	product, err := ps.ProductDB.GetProduct(id)
