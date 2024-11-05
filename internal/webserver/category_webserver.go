@@ -15,7 +15,7 @@ type CategoryWebserver struct {
 	CategoryService service.CategoryService
 }
 
-func (c *CategoryWebserver) NewCategoryWebserver(cs service.CategoryService) *CategoryWebserver {
+func NewCategoryWebserver(cs service.CategoryService) *CategoryWebserver {
 	return &CategoryWebserver{CategoryService: cs}
 }
 
