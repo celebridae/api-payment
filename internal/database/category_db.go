@@ -34,7 +34,7 @@ func (cat *CategoryDB) GetCategories() ([]*entity.Category, error) {
 
 func (c *CategoryDB) GetCategory(id string) (*entity.Category, error) {
 	var cat entity.Category
-	err := c.db.QueryRow("select * from category where id = ?", id).Scan(&cat.ID, &cat.Name)
+	err := c.db.QueryRow("select * from categories where id = ?", id).Scan(&cat.ID, &cat.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (c *CategoryDB) GetCategory(id string) (*entity.Category, error) {
 }
 
 func (cat *CategoryDB) PostCategories(category *entity.Category) (string, error) {
-	_, err := cat.db.Exec("INSERT INTO category (id, name) VALUES (?,?)", category.ID, category.Name)
+	_, err := cat.db.Exec("INSERT INTO categories (id, name) VALUES (?,?)", category.ID, category.Name)
 	if err != nil {
 		return "", err
 	}

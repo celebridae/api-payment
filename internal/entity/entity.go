@@ -20,7 +20,7 @@ type Product struct {
 	Name        string  `json:"name"`
 	Description string  `json:"description"`
 	Price       float64 `json:"price"`
-	Category    string  `json:"category"`
+	CategoryID  string  `json:"category_id"`
 	ImageUrl    string  `json:"image_url"`
 }
 
@@ -30,7 +30,7 @@ func NewProduct(name string, description string, price float64, categoria string
 		Name:        name,
 		Description: description,
 		Price:       price,
-		Category:    categoria,
+		CategoryID:  categoria,
 		ImageUrl:    image,
 	}
 }

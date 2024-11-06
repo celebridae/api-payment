@@ -14,7 +14,7 @@ func NewProductDB(db *sql.DB) *ProductDB {
 }
 
 func (db *ProductDB) GetProducties() ([]*entity.Product, error) {
-	rows, err := db.db.Query("SELECT * FROM product WHERE products IS NOT NULL")
+	rows, err := db.db.Query("SELECT * FROM products")
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +36,7 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 
 	var product entity.Product
 
-	err := prod.db.QueryRow("select * from product where id = ?", id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.ImageUrl)
+	err := prod.db.QueryRow("select * from products where id = ?", id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.CategoryID, &product.ImageUrl)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 }
 
 func (db *ProductDB) PostProduct(prod entity.Product) (string, error) {
-	_, err := db.db.Exec("insert into product (id, name,description,price,imageUrl,category_id) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.Category)
+	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.Category)
 	if err != nil {
 		return "", err
 	}
@@ -55,7 +55,7 @@ func (db *ProductDB) PostProduct(prod entity.Product) (string, error) {
 
 func (prod *ProductDB) GetProductByCategory(idCategory string) ([]*entity.Product, error) {
 	//var product entity.Product
-	rows, err := prod.db.Query("select * from Product where category_id = ?", idCategory)
+	rows, err := prod.db.Query("select * from Products where category_id = ?", idCategory)
 	//.Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.ImageUrl, &product.Category)
 	if err != nil {
 		return nil, err
