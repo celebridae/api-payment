@@ -2,3 +2,16 @@
 
 ###
 GET http://localhost:333/products
+
+###
+GET http://localhost:333/category
+
+###
+
+
+POST  http://localhost:333/category
+Content-Type: application/json
+
+{
+    "name": "Category E"
+}

@@ -31,11 +31,12 @@ func (cs *CategoryService) GetCategory(id string) (*entity.Category, error) {
 	return cat, nil
 }
 
-func (cs *CategoryService) PostCategories(cat *entity.Category) (string, error) {
-	_, err := cs.CategoryDB.PostCategories(cat)
+func (cs *CategoryService) PostCategories(cat *entity.Category) (*entity.Category, error) {
+	newCat := entity.NewCategory(cat.Name)
+	_, err := cs.CategoryDB.PostCategories(newCat)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return cat.ID, nil
+	return newCat, nil
 
 }

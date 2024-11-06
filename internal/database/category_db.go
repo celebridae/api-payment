@@ -42,11 +42,12 @@ func (c *CategoryDB) GetCategory(id string) (*entity.Category, error) {
 
 }
 
-func (cat *CategoryDB) PostCategories(category *entity.Category) (string, error) {
+func (cat *CategoryDB) PostCategories(category *entity.Category) (*entity.Category, error) {
+
 	_, err := cat.db.Exec("INSERT INTO categories (id, name) VALUES (?,?)", category.ID, category.Name)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return category.ID, nil
+	return category, nil
 
 }

@@ -45,11 +45,12 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 }
 
 func (db *ProductDB) PostProduct(prod entity.Product) (string, error) {
-	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
+	newProd := entity.NewProduct(prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
+	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", newProd.ID, newProd.Name, newProd.Description, newProd.Price, newProd.ImageUrl, newProd.CategoryID)
 	if err != nil {
 		return "", err
 	}
-	return prod.ID, nil
+	return newProd.ID, nil
 
 }
 

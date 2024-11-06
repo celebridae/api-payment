@@ -24,13 +24,13 @@ type Product struct {
 	CategoryID  string  `json:"category_id"`
 }
 
-func NewProduct(name string, description string, price float64, categoria string, image string) *Product {
+func NewProduct(name string, description string, price float64, image string, category_id string) *Product {
 	return &Product{
 		ID:          uuid.New().String(),
 		Name:        name,
 		Description: description,
 		Price:       price,
 		ImageUrl:    image,
-		CategoryID:  categoria,
+		CategoryID:  category_id,
 	}
 }
