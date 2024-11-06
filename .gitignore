@@ -1,2 +1,5 @@
-.docker/mysql/mysql.sock
-./docker
+.docker/
+##.docker/mysql/mysql.sock
+
+
+
