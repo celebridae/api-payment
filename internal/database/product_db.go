@@ -24,7 +24,7 @@ func (db *ProductDB) GetProducties() ([]*entity.Product, error) {
 
 	for rows.Next() {
 		var prod entity.Product
-		if err := rows.Scan(&prod.ID, &prod.Name, prod.Description, &prod.Price, prod.ImageUrl, prod.Category); err != nil {
+		if err := rows.Scan(&prod.ID, &prod.Name, prod.Description, &prod.Price, prod.ImageUrl, prod.CategoryID); err != nil {
 			return nil, err
 		}
 		products = append(products, &prod)
@@ -36,7 +36,7 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 
 	var product entity.Product
 
-	err := prod.db.QueryRow("select * from products where id = ?", id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.CategoryID, &product.ImageUrl)
+	err := prod.db.QueryRow("select * from products where id = ?", id).Scan(&product.ID, &product.Name, &product.Description, &product.Price, &product.ImageUrl, &product.CategoryID)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 }
 
 func (db *ProductDB) PostProduct(prod entity.Product) (string, error) {
-	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.Category)
+	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
 	if err != nil {
 		return "", err
 	}
@@ -65,7 +65,7 @@ func (prod *ProductDB) GetProductByCategory(idCategory string) ([]*entity.Produc
 	var products []*entity.Product
 	for rows.Next() {
 		var prod entity.Product
-		if err := rows.Scan(&prod.ID, &prod.Name, &prod.Description, &prod.Price, &prod.ImageUrl, &prod.Category); err != nil {
+		if err := rows.Scan(&prod.ID, &prod.Name, &prod.Description, &prod.Price, &prod.ImageUrl, &prod.CategoryID); err != nil {
 			return nil, err
 		}
 		products = append(products, &prod)
