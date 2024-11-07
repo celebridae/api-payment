@@ -41,11 +41,12 @@ func (ps *ProductService) GetProduct(id string) (*entity.Product, error) {
 
 }
 
-func (ps *ProductService) PostProduct(prod entity.Product) (string, error) {
-	product, err := ps.ProductDB.PostProduct(prod)
+func (ps *ProductService) PostProduct(prod *entity.Product) (*entity.Product, error) {
+	newProd := entity.NewProduct(prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
+	_, err := ps.ProductDB.PostProduct(newProd)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return product, nil
+	return newProd, nil
 
 }

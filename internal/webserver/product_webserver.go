@@ -53,7 +53,7 @@ func (pw *ProductWebserver) PostProduct(resp http.ResponseWriter, req *http.Requ
 		http.Error(resp, err.Error(), http.StatusBadRequest)
 		return
 	}
-	result, err := pw.ProductWebserver.PostProduct(product)
+	result, err := pw.ProductWebserver.PostProduct(&product)
 	if err != nil {
 		http.Error(resp, err.Error(), http.StatusInternalServerError)
 		return
