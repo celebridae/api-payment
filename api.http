@@ -4,7 +4,25 @@
 GET http://localhost:333/products
 
 ###
+
+POST  http://localhost:333/products
+Content-Type: application/json
+
+{
+    "name": "Product A",
+    "description": "description",
+    "price": 100,
+    "image_url": "http://localhost:333/products",
+    "category_id": "c9f18600-e5e6-4182-ac79-7a827eea51e3"    
+}
+
+###
 GET http://localhost:333/category
+
+
+### category by id
+
+GET http://localhost:333/category/c9f18600-e5e6-4182-ac79-7a827eea51e3
 
 ###
 
@@ -13,5 +31,5 @@ POST  http://localhost:333/category
 Content-Type: application/json
 
 {
-    "name": "Category E"
+    "name": "Category F"
 }

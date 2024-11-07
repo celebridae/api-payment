@@ -44,13 +44,13 @@ func (prod *ProductDB) GetProduct(id string) (*entity.Product, error) {
 
 }
 
-func (db *ProductDB) PostProduct(prod entity.Product) (string, error) {
-	newProd := entity.NewProduct(prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
-	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, imageUrl) VALUES (?,?,?,?,?,?)", newProd.ID, newProd.Name, newProd.Description, newProd.Price, newProd.ImageUrl, newProd.CategoryID)
+func (db *ProductDB) PostProduct(prod *entity.Product) (*entity.Product, error) {
+
+	_, err := db.db.Exec("insert into products (id, name,description,price,category_id, image_url) VALUES (?,?,?,?,?,?)", prod.ID, prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	return newProd.ID, nil
+	return prod, nil
 
 }
 
