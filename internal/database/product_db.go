@@ -24,7 +24,7 @@ func (db *ProductDB) GetProducties() ([]*entity.Product, error) {
 
 	for rows.Next() {
 		var prod entity.Product
-		if err := rows.Scan(&prod.ID, &prod.Name, prod.Description, &prod.Price, prod.ImageUrl, prod.CategoryID); err != nil {
+		if err := rows.Scan(&prod.ID, &prod.Name, &prod.Description, &prod.Price, &prod.ImageUrl, &prod.CategoryID); err != nil {
 			return nil, err
 		}
 		products = append(products, &prod)

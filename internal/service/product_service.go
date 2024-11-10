@@ -3,6 +3,7 @@ package service
 import (
 	"api-payment/internal/database"
 	"api-payment/internal/entity"
+	"fmt"
 )
 
 type ProductService struct {
@@ -43,6 +44,7 @@ func (ps *ProductService) GetProduct(id string) (*entity.Product, error) {
 
 func (ps *ProductService) PostProduct(prod *entity.Product) (*entity.Product, error) {
 	newProd := entity.NewProduct(prod.Name, prod.Description, prod.Price, prod.ImageUrl, prod.CategoryID)
+	fmt.Println(newProd)
 	_, err := ps.ProductDB.PostProduct(newProd)
 	if err != nil {
 		return nil, err
