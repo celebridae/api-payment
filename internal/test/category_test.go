@@ -5,7 +5,6 @@ import (
 	"api-payment/internal/router"
 	"database/sql"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -51,19 +50,14 @@ func TestCategory(t *testing.T) {
 	t.Run("create category", func(t *testing.T) {
 
 		router := router.InitializeRoute(db)
-
 		category := entity.NewCategory("Books")
-
-		fmt.Println("category:", category)
 		// Convert category to JSON
 		categoryJSON, err := json.Marshal(category)
 		if err != nil {
 			t.Fatalf("Failed to marshal category: %v", err)
 		}
 
-		fmt.Println("Json:", string(categoryJSON))
-
-		req := httptest.NewRequest(http.MethodGet, "/category", strings.NewReader(string(categoryJSON)))
+		req := httptest.NewRequest(http.MethodPost, "/category", strings.NewReader(string(categoryJSON)))
 		resp := httptest.NewRecorder()
 
 		router.ServeHTTP(resp, req)
