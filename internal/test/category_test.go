@@ -5,6 +5,7 @@ import (
 	"api-payment/internal/router"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -67,6 +68,26 @@ func TestCategory(t *testing.T) {
 		err = json.NewDecoder(resp.Body).Decode(&cat)
 		assert.NoError(t, err)
 		assert.Equal(t, "Books", cat.Name)
+
+	})
+
+	t.Run("Find by id category", func(t *testing.T) {
+
+		router := router.InitializeRoute(db)
+
+		var idCategory = "c9f18600-e5e6-4182-ac79-7a827eea51e3"
+
+		req := httptest.NewRequest(http.MethodGet, fmt.Sprintf("/category/%s", idCategory), nil)
+		resp := httptest.NewRecorder()
+
+		router.ServeHTTP(resp, req)
+		assert.Equal(t, http.StatusOK, resp.Code)
+
+		var cat entity.Category
+		err = json.NewDecoder(resp.Body).Decode(&cat)
+		assert.NoError(t, err)
+		assert.Equal(t, "Category B", cat.Name)
+		assert.Equal(t, idCategory, cat.ID)
 
 	})
 
