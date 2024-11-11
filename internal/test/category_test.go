@@ -1,11 +1,14 @@
 package test
 
 import (
+	"api-payment/internal/entity"
 	"api-payment/internal/router"
 	"database/sql"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	//"github.com/go-playground/assert/v2"
@@ -43,6 +46,34 @@ func TestCategory(t *testing.T) {
 		err = json.NewDecoder(resp.Body).Decode(&categories)
 		assert.NoError(t, err)
 		assert.GreaterOrEqual(t, len(categories), 0)
+	})
+
+	t.Run("create category", func(t *testing.T) {
+
+		router := router.InitializeRoute(db)
+
+		category := entity.NewCategory("Books")
+
+		fmt.Println("category:", category)
+		// Convert category to JSON
+		categoryJSON, err := json.Marshal(category)
+		if err != nil {
+			t.Fatalf("Failed to marshal category: %v", err)
+		}
+
+		fmt.Println("Json:", string(categoryJSON))
+
+		req := httptest.NewRequest(http.MethodGet, "/category", strings.NewReader(string(categoryJSON)))
+		resp := httptest.NewRecorder()
+
+		router.ServeHTTP(resp, req)
+		assert.Equal(t, http.StatusCreated, resp.Code)
+
+		var cat entity.Category
+		err = json.NewDecoder(resp.Body).Decode(&cat)
+		assert.NoError(t, err)
+		assert.Equal(t, "Books", cat.Name)
+
 	})
 
 }
