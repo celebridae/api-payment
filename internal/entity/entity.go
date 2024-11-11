@@ -1,10 +1,12 @@
 package entity
 
-import "github.com/google/uuid"
+import (
+	"github.com/google/uuid"
+)
 
 type Category struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID   string `json:"id"  validate:"required,uuid4"`
+	Name string `json:"name" validate:"required,min=3,max=100"`
 }
 
 func NewCategory(name string) *Category {

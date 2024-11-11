@@ -32,11 +32,10 @@ func (cs *CategoryService) GetCategory(id string) (*entity.Category, error) {
 }
 
 func (cs *CategoryService) PostCategories(cat *entity.Category) (*entity.Category, error) {
-	newCat := entity.NewCategory(cat.Name)
-	_, err := cs.CategoryDB.PostCategories(newCat)
+	_, err := cs.CategoryDB.PostCategories(cat)
 	if err != nil {
 		return nil, err
 	}
-	return newCat, nil
+	return cat, nil
 
 }

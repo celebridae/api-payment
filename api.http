@@ -17,15 +17,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:333/category
 
+GET http://localhost:333/category
 
 ### category by id
 
-GET http://localhost:333/category/Ac9f18600-e5e6-4182-ac79-7a827eea51e3
+GET http://localhost:333/category/ac9f18600-e5e6-4182-ac79-7a827eea51e3
 
 ###
-
 POST  http://localhost:333/category
 Content-Type: application/json
 
